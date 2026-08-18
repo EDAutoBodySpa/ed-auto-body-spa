@@ -64,6 +64,7 @@
     font-family:'Oswald', sans-serif;
     font-size:22px; font-weight:700;
     letter-spacing:0.04em;
+    display:flex; align-items:center;
   }
   .logo span{color:var(--gold);}
   .nav-links{display:flex; gap:32px; font-size:14px; letter-spacing:0.03em; text-transform:uppercase;}
@@ -330,6 +331,11 @@
   .slot-btn.taken:hover{border-color:var(--line); color:var(--steel);}
   .slot-note{color:var(--steel); font-size:12px; margin-top:4px;}
 
+  /* ===== ABOUT SECTION ===== */
+  #about{background:var(--panel-2);}
+  #about .contact-info p{color:var(--steel); max-width:420px;}
+  #about ul li strong{color:var(--paper);}
+
   /* ===== FOOTER ===== */
   footer{padding:40px 0; border-top:1px solid var(--line);}
   .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
@@ -351,6 +357,7 @@
     .contact-grid{grid-template-columns:1fr;}
     .nav-links{display:none;}
     .menu-btn{display:block;}
+    #about .contact-grid{grid-template-columns:1fr;}
   }
   @media(max-width:520px){
     .services-grid{grid-template-columns:1fr;}
@@ -360,6 +367,7 @@
     .process-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:1fr;}
     .trust-row{gap:30px;}
+    #about .contact-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -367,11 +375,15 @@
 
 <header>
   <nav>
-    <div class="logo">E<span>&</span>D <span style="color:var(--paper); font-weight:400; font-size:15px; letter-spacing:0.08em;">AUTO BODY SPA</span></div>
+    <div class="logo">
+      E<span>&</span>D <span style="color:var(--paper); font-weight:400; font-size:15px; letter-spacing:0.08em;">AUTO BODY SPA</span>
+      <span style="margin-left:14px; color:var(--steel); font-size:12px; font-family:'JetBrains Mono'; letter-spacing:0.04em; opacity:0.8;">EST. 2025</span>
+    </div>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#process">Process</a>
       <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="nav-cta">Book Now</a>
@@ -676,18 +688,16 @@
 
 <script>
   /* ---------- Availability config ---------- */
-  /* Business hours: Mon–Sat, 8am–6pm. Closed Sunday. Edit here if hours change. */
-  const OPEN_HOUR = 8;    // 8am
-  const CLOSE_HOUR = 18;  // 6pm
-  const SLOT_LENGTH_HRS = 2; // each appointment window is ~2 hours
-  const CLOSED_DAYS = [0]; // 0 = Sunday
+  const OPEN_HOUR = 8;
+  const CLOSE_HOUR = 18;
+  const SLOT_LENGTH_HRS = 2;
+  const CLOSED_DAYS = [0];
 
   const dateInput = document.getElementById('pref-date');
   const slotsWrap = document.getElementById('time-slots');
   const slotNote = document.getElementById('slot-note');
   const hiddenTime = document.getElementById('pref-time');
 
-  // Restrict date picker to today .. 30 days out
   const todayStr = new Date().toISOString().split('T')[0];
   const maxDate = new Date();
   maxDate.setDate(maxDate.getDate() + 30);
@@ -705,10 +715,6 @@
     return fmt(startHour) + '–' + fmt(endHour);
   }
 
-  // Locally remembers slots this visitor has already requested, so they don't
-  // accidentally pick the same date/time twice across visits on this device.
-  // This is a lightweight convenience, not a live multi-customer calendar —
-  // final confirmation happens by phone/text.
   function getLocallyRequested(){
     try{
       return JSON.parse(window.localStorage.getItem('edabs_requested_slots') || '{}');
@@ -720,7 +726,7 @@
       data[dateStr] = data[dateStr] || [];
       if(data[dateStr].indexOf(slotValue) === -1) data[dateStr].push(slotValue);
       window.localStorage.setItem('edabs_requested_slots', JSON.stringify(data));
-    } catch(e){ /* localStorage unavailable, skip silently */ }
+    } catch(e){ }
   }
 
   function renderSlots(){
@@ -734,7 +740,6 @@
       return;
     }
 
-    // Parse as local date (avoid UTC off-by-one)
     const parts = dateVal.split('-').map(Number);
     const chosen = new Date(parts[0], parts[1] - 1, parts[2]);
     const day = chosen.getDay();
@@ -822,6 +827,37 @@
     });
   });
 </script>
+
+<!-- ===== NEW ABOUT SECTION ===== -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="eyebrow mono">/ About Us</span>
+        <h2>Locals who care about cars</h2>
+        <p>Erik and Dennis started E&D Auto Body Spa in 2025 because they were tired of watching good cars get treated poorly at big chain shops. We're Baltimore County folks — neighbors, not strangers.</p>
+        <p>Same guy handles every detail, from start to finish. No rotating crews, no rushing through jobs. Just honest work and a finish you'll notice.</p>
+      </div>
+      <div style="background:var(--panel); border:1px solid var(--line); padding:32px; border-radius:2px;">
+        <h3 style="font-family:'Oswald'; margin-bottom:20px;">Why We Started</h3>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li style="margin-bottom:16px; display:flex; gap:12px; align-items:start;">
+            <span style="color:var(--gold); font-size:18px;">●</span>
+            <div><strong style="color:var(--paper);">Built on trust.</strong> <span style="color:var(--steel);">We show up when we say we will.</span></div>
+          </li>
+          <li style="margin-bottom:16px; display:flex; gap:12px; align-items:start;">
+            <span style="color:var(--gold); font-size:18px;">●</span>
+            <div><strong style="color:var(--paper);">Mobile convenience.</strong> <span style="color:var(--steel);">You save time — we come to you.</span></div>
+          </li>
+          <li style="margin-bottom:16px; display:flex; gap:12px; align-items:start;">
+            <span style="color:var(--gold); font-size:18px;">●</span>
+            <div><strong style="color:var(--paper);">Detail-oriented.</strong> <span style="color:var(--steel);">We treat every car like it's our own.</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap footer-row">
