@@ -64,9 +64,14 @@
     font-family:'Oswald', sans-serif;
     font-size:22px; font-weight:700;
     letter-spacing:0.04em;
-    display:flex; align-items:center;
+    display:flex; flex-direction:column; align-items:flex-start; gap:2px;
   }
-  .logo span{color:var(--gold);}
+  .logo .main-title{
+    display:flex; align-items:center; gap:14px;
+  }
+  .logo .est-tag{
+    color:var(--steel); font-size:12px; font-family:'JetBrains Mono'; letter-spacing:0.04em; opacity:0.8;
+  }
   .nav-links{display:flex; gap:32px; font-size:14px; letter-spacing:0.03em; text-transform:uppercase;}
   .nav-links a{color:var(--steel); transition:color 0.2s;}
   .nav-links a:hover, .nav-links a:focus-visible{color:var(--gold);}
@@ -78,6 +83,12 @@
   }
   .nav-cta:hover, .nav-cta:focus-visible{background:#f3b658; transform:translateY(-1px);}
   .menu-btn{display:none; background:none; border:none; color:var(--paper); font-size:24px; cursor:pointer;}
+
+  /* Desktop: EST. 2025 inline */
+  @media(min-width:901px){
+    .logo{flex-direction:row;}
+    .logo .main-title{flex-direction:row;}
+  }
 
   /* ===== HERO ===== */
   .hero{
@@ -358,6 +369,9 @@
     .nav-links{display:none;}
     .menu-btn{display:block;}
     #about .contact-grid{grid-template-columns:1fr;}
+    /* Mobile logo: stack EST. 2025 below */
+    .logo{justify-content:flex-start;}
+    .nav{align-items:flex-start;}
   }
   @media(max-width:520px){
     .services-grid{grid-template-columns:1fr;}
@@ -376,8 +390,10 @@
 <header>
   <nav>
     <div class="logo">
-      E<span>&</span>D <span style="color:var(--paper); font-weight:400; font-size:15px; letter-spacing:0.08em;">AUTO BODY SPA</span>
-      <span style="margin-left:14px; color:var(--steel); font-size:12px; font-family:'JetBrains Mono'; letter-spacing:0.04em; opacity:0.8;">EST. 2025</span>
+      <div class="main-title">
+        E<span>&</span>D <span style="color:var(--paper); font-weight:400; font-size:15px; letter-spacing:0.08em;">AUTO BODY SPA</span>
+      </div>
+      <span class="est-tag">EST. 2025</span>
     </div>
     <div class="nav-links">
       <a href="#services">Services</a>
@@ -637,7 +653,7 @@
         <span class="eyebrow mono">/ Contact</span>
         <h2>Let's get your car looking new</h2>
         <p>Send a few details about your vehicle and we'll get back to you with a quote — usually same day.</p>
-        <div class="contact-detail"><span class="label">Phone</span><span class="val">(443) 554-2212</span></div>
+        <div class="contact-detail"><span class="label">Phone</span><span class="val">443-554-2212</span></div>
         <div class="contact-detail"><span class="label">Email</span><span class="val">edautobodyspa@gmail.com</span></div>
         <div class="contact-detail"><span class="label">Area</span><span class="val">Baltimore County, MD</span></div>
         <div class="contact-detail"><span class="label">Hours</span><span class="val">Mon–Sat, 8am–6pm</span></div>
@@ -828,7 +844,7 @@
   });
 </script>
 
-<!-- ===== NEW ABOUT SECTION ===== -->
+<!-- ===== ABOUT SECTION ===== -->
 <section class="section" id="about">
   <div class="wrap">
     <div class="contact-grid">
